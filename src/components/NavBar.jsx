@@ -8,7 +8,7 @@ class NavBar extends React.Component {
       <>
         <Navbar bg="dark" variant="dark">
           <Link to="/">
-            <Navbar.Brand>
+            <Navbar.Brand onClick={() => this.props.clearProduct()}>
               <i className="fas fa-shopping-basket mr-2"></i>Shopping place
             </Navbar.Brand>
           </Link>
@@ -20,6 +20,7 @@ class NavBar extends React.Component {
                   ? "nav-link active"
                   : "nav-link"
               }
+              onClick={() => this.props.clearProduct()}
             >
               HOME
             </Link>
@@ -31,6 +32,7 @@ class NavBar extends React.Component {
                   ? "nav-link active"
                   : "nav-link"
               }
+              onClick={() => this.props.clearProduct()}
             >
               Add Product
             </Link>
