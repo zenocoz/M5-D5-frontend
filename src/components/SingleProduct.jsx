@@ -1,6 +1,8 @@
+
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
+
 
 function SingleProduct(props) {
   return (
@@ -17,8 +19,11 @@ function SingleProduct(props) {
           {props.productObj.category}
         </h5>
         <Card.Text>{props.productObj.description}</Card.Text>
+
         <h4 className="text-warning">Price: ${props.productObj.price}</h4>
-        <Button variant="primary">Go to product detail</Button>
+        <Button variant="primary" onClick={() => {
+            props.history.push("/details/" + props.productObj.ID)
+          }}>Go to product detail</Button>
         <div className="mt-4 editButtons" style={{ display: "none" }}>
           <Button variant="danger">Delete</Button>
           <Link to="/backoffice">
@@ -26,10 +31,13 @@ function SingleProduct(props) {
               Edit
             </Button>
           </Link>
+
         </div>
       </Card.Body>
     </Card>
-  );
+  )
 }
 
+
 export default withRouter(SingleProduct);
+
