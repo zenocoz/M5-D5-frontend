@@ -1,29 +1,31 @@
-import React from "react"
-import { Row, Container, Card, Col, Badge } from "react-bootstrap"
+import React from "react";
+import { Row, Container, Card, Col, Badge } from "react-bootstrap";
 
 class ProductDetails extends React.Component {
   state = {
     details: {},
-  }
+  };
 
   fetchProduct = async (id) => {
     try {
-      const response = await fetch("http://localhost:3001/products/" + id)
+      const response = await fetch(
+        `http://localhost:${process.env.REACT_APP_PORT}/products/` + id
+      );
       if (response.ok) {
-        const details = await response.json()
-        console.log(details[0])
-        this.setState({ details: details[0] })
+        const details = await response.json();
+        console.log(details[0]);
+        this.setState({ details: details[0] });
       } else {
-        alert("something went wrong")
+        alert("something went wrong");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   componentDidMount() {
-    let productId = this.props.match.params.id
-    this.fetchProduct(productId)
+    let productId = this.props.match.params.id;
+    this.fetchProduct(productId);
   }
 
   render() {
@@ -53,8 +55,8 @@ class ProductDetails extends React.Component {
         )}
         {!this.state.details && <h1>LOADING</h1>}
       </Container>
-    )
+    );
   }
 }
 
-export default ProductDetails
+export default ProductDetails;
