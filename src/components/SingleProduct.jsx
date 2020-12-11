@@ -17,6 +17,14 @@ function SingleProduct(props) {
         </h5>
         <Card.Text>{props.productObj.description}</Card.Text>
         <Button variant="primary">Go to product detail</Button>
+        <div className="d-flex mt-4  justify-content-between editButtons">
+          <Button variant="danger" style={{ display: "none" }}>
+            Delete
+          </Button>
+          <Button variant="info" style={{ display: "none" }}>
+            Edit
+          </Button>
+        </div>
       </Card.Body>
     </Card>
   );
