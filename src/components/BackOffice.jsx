@@ -62,7 +62,7 @@ class BackOffice extends React.Component {
         const data = await response.json();
         console.log(data);
         if (this.state.post !== null) {
-          this.fetchImage(data["product created with id"]);
+          this.fetchImage(data.ID);
         }
       }
     } catch (error) {
