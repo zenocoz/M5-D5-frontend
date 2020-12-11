@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { Link, withRouter } from "react-router-dom";
 
 function SingleProduct(props) {
   return (
@@ -16,18 +17,19 @@ function SingleProduct(props) {
           {props.productObj.category}
         </h5>
         <Card.Text>{props.productObj.description}</Card.Text>
+        <h4 className="text-warning">Price: ${props.productObj.price}</h4>
         <Button variant="primary">Go to product detail</Button>
-        <div className="d-flex mt-4  justify-content-between editButtons">
-          <Button variant="danger" style={{ display: "none" }}>
-            Delete
-          </Button>
-          <Button variant="info" style={{ display: "none" }}>
-            Edit
-          </Button>
+        <div className="mt-4 editButtons" style={{ display: "none" }}>
+          <Button variant="danger">Delete</Button>
+          <Link to="/backoffice">
+            <Button variant="info" onClick={props.editProduct}>
+              Edit
+            </Button>
+          </Link>
         </div>
       </Card.Body>
     </Card>
   );
 }
 
-export default SingleProduct;
+export default withRouter(SingleProduct);

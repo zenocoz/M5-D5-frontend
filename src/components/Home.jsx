@@ -5,6 +5,10 @@ class Home extends React.Component {
   state = {
     products: [],
     loading: true,
+    editProduct: {
+      productObj: {},
+      editCounter: 0,
+    },
   };
 
   fetchProducts = async () => {
@@ -38,7 +42,18 @@ class Home extends React.Component {
           <Row className="mt-5">
             {this.state.products.map((product, index) => (
               <Col md={4} key={index}>
-                <SingleProduct productObj={product} />
+                <SingleProduct
+                  productObj={product}
+                  history={this.props.history}
+                  editProduct={() =>
+                    this.setState({
+                      editProduct: {
+                        productObj: product,
+                        editCounter: this.state.editProduct.editCounter + 1,
+                      },
+                    })
+                  }
+                />
               </Col>
             ))}
           </Row>
