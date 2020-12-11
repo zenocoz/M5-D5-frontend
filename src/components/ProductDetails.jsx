@@ -36,7 +36,7 @@ class ProductDetails extends React.Component {
             <Row className="my-2">
               <Col md={3}>
                 <img
-                  src={"/" + this.state.details.imageUrl}
+                  src={this.state.details.imageUrl}
                   alt="product"
                   className="img-fluid"
                 />
