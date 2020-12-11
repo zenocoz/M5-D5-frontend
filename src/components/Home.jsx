@@ -37,7 +37,7 @@ class Home extends React.Component {
         <Container>
           <Row className="mt-5">
             {this.state.products.map((product, index) => (
-              <Col md={3} key={index}>
+              <Col md={4} key={index}>
                 <SingleProduct productObj={product} />
               </Col>
             ))}
