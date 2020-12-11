@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, Button } from "react-bootstrap";
+import React from "react"
+import { Card, Button } from "react-bootstrap"
 
 function SingleProduct(props) {
   return (
@@ -16,7 +16,14 @@ function SingleProduct(props) {
           {props.productObj.category}
         </h5>
         <Card.Text>{props.productObj.description}</Card.Text>
-        <Button variant="primary">Go to product detail</Button>
+        <Button
+          variant="primary"
+          onClick={() => {
+            props.history.push("/details/" + props.productObj.ID)
+          }}
+        >
+          Go to product detail
+        </Button>
         <div className="d-flex mt-4  justify-content-between editButtons">
           <Button variant="danger" style={{ display: "none" }}>
             Delete
@@ -27,7 +34,7 @@ function SingleProduct(props) {
         </div>
       </Card.Body>
     </Card>
-  );
+  )
 }
 
-export default SingleProduct;
+export default SingleProduct
