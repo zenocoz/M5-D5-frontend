@@ -20,10 +20,12 @@ class BackOffice extends React.Component {
     addProduct[currentID] = e.currentTarget.value;
     this.setState({ addProduct });
   };
+
   fileUploadHandler = (e) => {
     const formData = new FormData();
     formData.append("product", e.target.files[0]);
     this.setState({ post: formData });
+    console.log(this.state.post);
   };
 
   fetchImage = async (id) => {
