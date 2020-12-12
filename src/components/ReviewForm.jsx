@@ -1,12 +1,12 @@
-import React, { Component } from "react"
-import { Form, Row, Col, Button } from "react-bootstrap"
+import React, { Component } from "react";
+import { Form, Row, Col, Button } from "react-bootstrap";
 
 export default class ReviewForm extends Component {
   state = {
     review: {
       elementId: this.props.productId,
     },
-  }
+  };
 
   handleChange = (e) => {
     this.setState({
@@ -14,31 +14,34 @@ export default class ReviewForm extends Component {
         ...this.state.review,
         [e.target.id]: e.target.value,
       },
-    })
-  }
+    });
+  };
 
   addReview = async (e) => {
-    e.preventDefault()
-    console.log(this.state.review)
-    const response = await fetch(
-      `http://localhost:${process.env.REACT_APP_PORT}/reviews`,
-      {
+    e.preventDefault();
+    try {
+      console.log(this.state.review);
+      const url = `http://localhost:${process.env.REACT_APP_PORT}/reviews`;
+      let response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(this.state.review),
         headers: new Headers({
-          "Content-Type": "application-json",
+          "Content-Type": "application/json",
         }),
+      });
+
+      if (response.ok) {
+        alert("comment added");
+        this.setState({ review: { elementId: this.props.productId } });
+      } else {
+        alert("something went wrong");
+        const error = await response.json();
+        console.log(error);
       }
-    )
-    if (response.ok) {
-      alert("comment added")
-      this.setState({ review: { elementId: this.props.productId } })
-    } else {
-      alert("something went wrong")
-      const error = await response.json()
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   render() {
     return (
@@ -75,6 +78,6 @@ export default class ReviewForm extends Component {
           </Button>
         </Form>
       </>
-    )
+    );
   }
 }
