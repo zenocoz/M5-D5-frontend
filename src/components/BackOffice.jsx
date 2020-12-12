@@ -20,10 +20,12 @@ class BackOffice extends React.Component {
     addProduct[currentID] = e.currentTarget.value;
     this.setState({ addProduct });
   };
+
   fileUploadHandler = (e) => {
     const formData = new FormData();
     formData.append("product", e.target.files[0]);
     this.setState({ post: formData });
+    console.log(this.state.post);
   };
 
   fetchImage = async (id) => {
@@ -49,24 +51,62 @@ class BackOffice extends React.Component {
     e.preventDefault();
     try {
       let url = `http://localhost:${process.env.REACT_APP_PORT}/products`;
+
       let response;
-      response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(this.state.addProduct),
-        headers: new Headers({
-          "Content-Type": "application/json",
-        }),
-      });
+      if (this.props.product.ID) {
+        response = await fetch(url + "/" + this.props.product.ID, {
+          method: "PUT",
+          body: JSON.stringify(this.state.addProduct),
+          headers: new Headers({
+            "Content-Type": "application/json",
+          }),
+        });
+      } else {
+        response = await fetch(url, {
+          method: "POST",
+          body: JSON.stringify(this.state.addProduct),
+          headers: new Headers({
+            "Content-Type": "application/json",
+          }),
+        });
+      }
+
       if (response.ok) {
-        alert("Product added");
+        alert(`Product ${this.props.product.ID ? "edited" : "added"} `);
         const data = await response.json();
         console.log(data);
         if (this.state.post !== null) {
           this.fetchImage(data.ID);
         }
+        this.props.clearProduct();
+        this.props.history.push("/");
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  componentDidMount = () => {
+    if (this.props.product.ID) {
+      this.setState({
+        addProduct: {
+          name: this.props.product.name,
+          description: this.props.product.description,
+          brand: this.props.product.brand,
+          price: this.props.product.price,
+          category: this.props.product.category,
+        },
+      });
+    } else {
+      this.setState({
+        addProduct: {
+          name: "",
+          description: "",
+          brand: "",
+          price: 0,
+          category: "",
+        },
+      });
     }
   };
 
@@ -153,7 +193,7 @@ class BackOffice extends React.Component {
                 </Form.Group>
                 <div className="d-flex justify-content-center">
                   <Button variant="outline-light" type="submit">
-                    Submit
+                    {this.props.product.ID ? "Edit Product" : "Submit Product"}
                   </Button>
                 </div>
               </Form>

@@ -4,8 +4,12 @@ import { Link, withRouter } from "react-router-dom";
 
 function SingleProduct(props) {
   return (
-    <Card>
-      <Card.Img variant="top" src={props.productObj.imageUrl} />
+    <Card className="bg-dark text-light">
+      <Card.Img
+        variant="top"
+        src={props.productObj.imageUrl}
+        style={{ height: "200px", objectFit: "cover" }}
+      />
       <Card.Body>
         <Card.Title>{props.productObj.name}</Card.Title>
         <h5>
@@ -28,9 +32,11 @@ function SingleProduct(props) {
           Go to product detail
         </Button>
         <div className="mt-4 editButtons" style={{ display: "none" }}>
-          <Button variant="danger">Delete</Button>
+          <Button variant="danger" onClick={() => props.deleteProduct()}>
+            Delete
+          </Button>
           <Link to="/backoffice">
-            <Button variant="info" onClick={props.editProduct}>
+            <Button variant="info" onClick={() => props.editProduct()}>
               Edit
             </Button>
           </Link>
