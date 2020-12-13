@@ -17,11 +17,9 @@ class Home extends React.Component {
     searchProduct: "",
   };
 
-  HandleSearchQuery = (query) => {
-    if (query.length > 0) {
-      this.setState({ searchProduct: query });
-    } else {
-      this.setState({ searchProduct: "" });
+  HandleSearchQuery = (e) => {
+    if (e.key === "Enter" || e.keyCode === 13) {
+      this.setState({ searchProduct: e.currentTarget.value });
     }
   };
 
@@ -126,9 +124,9 @@ class Home extends React.Component {
               aria-label="Default"
               aria-describedby="inputGroup-sizing-default"
               placeholder="Search products by category..."
-              onChange={(e) => {
-                this.HandleSearchQuery(e.target.value);
-              }}
+              onKeyDown={this.HandleSearchQuery}
+              onChange={this.HandleSearchQuery}
+              // value={this.state.searchProduct}
             />
           </InputGroup>
           <Row className="my-5">
