@@ -117,9 +117,9 @@ class BackOffice extends React.Component {
           <Row className="mt-5">
             <Col
               md={{ span: 6, offset: 3 }}
-              className="bg-dark text-light rounded"
+              className="bg-dark text-light rounded mb-5"
             >
-              <Form className="p-5" onSubmit={this.submitProduct}>
+              <Form className="px-3 py-4" onSubmit={this.submitProduct}>
                 <Form.Group>
                   <Form.Label htmlFor="name">Name</Form.Label>
                   <Form.Control
